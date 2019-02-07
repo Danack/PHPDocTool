@@ -1,0 +1,52 @@
+version: "3"
+services:
+  php_fpm:
+    build: docker/php_fpm
+    image: phpdoctool_php_fpm
+    depends_on:
+      - installer
+      - redis
+    volumes:
+      - .:/var/app
+  installer:
+    build: docker/installer
+    volumes:
+      - .:/var/app
+  php_fpm_debug:
+    build: docker/php_fpm_debug
+    depends_on:
+      - redis
+      - php_fpm
+    volumes:
+      - .:/var/app
+  redis:
+    image: redis:4.0.6
+    ports:
+      - "6379:6379"
+    volumes:
+      - .:/var/www
+    command: ["redis-server", "/var/www/docker/redis/config/redis.conf"]
+  nginx:
+    build: docker/nginx
+    depends_on:
+      - redis
+      - php_fpm
+      - php_fpm_debug
+    volumes:
+      - .:/var/app
+    ports:
+      - "80:80"
+      - "8000:8000"
+      - "8001:8001"
+  supervisord:
+    build: docker/supervisord
+    depends_on:
+      - redis
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/var/app
+# https://rskuipers.com/entry/file-permissions-with-docker-on-linux
+# fpm:
+    # For Linux users only (UID of your user)
+ #   user: "1000"

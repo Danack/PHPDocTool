@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+
+
+
+  <title>Example site</title>
+
+
+</head>
+<body>
+<div id="main-wrapper">
+  {% block page_body %}
+    Page body goes here. Did you accidentally call base.html by mistake?
+  {% endblock %}
+
+</div>
+</body>
+
+<script src="/jquery/jquery-3.3.1.min.js"></script>
+<script src="/jquery/jquery-ui.min.js"></script>
+<script src="/js/AsyncInvoiceDownload.js"></script>
+
+
+{% block page_javascript %}
+{% endblock %}
+
+{{ memory_debug() }}
+</html>
