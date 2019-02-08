@@ -7,34 +7,37 @@
 ## How to use
 
 
+put this in your /etc/hosts file
+```
+127.0.0.1 local.php.net
+```
+
+
+Run this to build the containers.
+```
 docker-compose build
+```
 
+
+Run this to bring the containers up.
+```
 docker-compose up --build
-
-cd /var/app
-
-git clone https://github.com/phpdoctest/en
-
-cd /var/app/en
-
-git clone https://github.com/phpdoctest/doc-base
-
-cd /var/app
-git clone http://git.php.net/repository/web/php.git php.net
-
-mv /var/app/php.net/manual/en /var/app/php.net/manual/en_git
-
-ln -s /var/app/output/php-web /var/app/php.net/manual/en
-
-# this takes 2 minutes
-php /var/app/doc-en/doc-base/configure.php
+```
 
 
+visit local.php.net in a web browser. You should see the manual
 
-php /var/app/phd/render.php --docbook /var/app/doc-en/doc-base/.manual.xml --package PHP --format php
+
+docker exec -it phpdoctool_php_fpm_1 bash
 
 
 
 
 
+
+
+## Notes
+
+preview.php.net refused to connect
+preview.php.net and edit.php.net have the same IP address.
 
