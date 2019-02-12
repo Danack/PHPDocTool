@@ -14,7 +14,7 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee -a /
     && apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y php7.2 php7.2-common php7.2-cli php7.2-fpm \
     php7.2-mysql php7.2-curl php7.2-xml php7.2-mbstring \
-    php7.2-intl php7.2-redis php7.2-zip tidy \
+    php7.2-intl php7.2-redis php7.2-zip php7.2-sqlite \
     php7.2-imagick supervisor
 
 # Make the default directory you

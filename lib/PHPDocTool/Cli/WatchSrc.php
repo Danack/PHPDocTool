@@ -64,7 +64,7 @@ class WatchSrc
         }
 
         else {
-            echo "Skipping $filename as mtime $fileMtime > $lastMTime \n ";
+            echo "Skipping $filename as mtime !($fileMtime > $lastMTime) \n ";
         }
 
         return false;

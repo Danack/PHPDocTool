@@ -49,7 +49,7 @@ class GenerateDoc
             return;
         }
 
-        echo "let's do stuff.\n";
+        echo "Waiting for docs to build.\n";
 
         $docToBuild = $this->docsToBuild->waitForDocToBuild();
 
@@ -108,6 +108,9 @@ php /var/app/phd/render.php \
 TEXT;
 
         echo "about to render xml -> docbook\n";
+
+//        echo "Command is: [$phdCommand]";
+
         chdir('/var/app');
         exec($phdCommand, $output, $return_value);
 
