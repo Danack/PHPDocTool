@@ -3,11 +3,14 @@
 
 use Danack\Console\Application;
 use Danack\Console\Output\BufferedOutput;
-use Example\CLIFunction;
+use PHPDocTool\CLIFunction;
 use VarMap\VarMap;
 use VarMap\ArrayVarMap;
 
 error_reporting(E_ALL);
+
+
+define('ROOT_PATH', __DIR__);
 
 require_once __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/lib/factories.php';

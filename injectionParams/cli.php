@@ -8,30 +8,27 @@ if (function_exists('injectionParams') == false) {
     {
         // These classes will only be created once by the injector.
         $shares = [
-            \Doctrine\ORM\EntityManager::class,
-            \Airbrake\Notifier::class
         ];
 
         // Alias interfaces (or classes) to the actual types that should be used
         // where they are required.
         $aliases = [
-            Example\Repo\InvoiceRepo\InvoiceRepo::class => \Example\Repo\InvoiceRepo\FakeInvoiceRepo::class,
+            PHPDocTool\Repo\StatusStorage\StatusStorage::class =>
+            PHPDocTool\Repo\StatusStorage\RedisStatusStorage::class,
 
-            \Example\Service\LocalStorage\InvoiceLocalStorage\InvoiceLocalStorage::class =>
-            \Example\Service\LocalStorage\InvoiceLocalStorage\FileInvoiceLocalStorage::class,
-            \Example\Queue\PrintUrlToPdfQueue::class => \Example\Queue\RedisPrintUrlToPdfQueue::class,
+            \PHPDocTool\Repo\DocsToBuild\DocsToBuild::class =>
+            \PHPDocTool\Repo\DocsToBuild\RedisDocsToBuild::class,
+
+            \PHPDocTool\Repo\FileLastModifiedBuildTime\FileLastModifiedBuildTime::class =>
+            \PHPDocTool\Repo\FileLastModifiedBuildTime\RedisFileLastModifiedBuildTime::class,
         ];
 
 
 
         // Delegate the creation of types to callables.
         $delegates = [
-            \PDO::class => 'createPDO',
+//            \PDO::class => 'createPDO',
             \Redis::class => 'createRedis',
-            \Doctrine\ORM\EntityManager::class => 'createDoctrineEntityManager',
-            \Example\Service\LocalStorage\InvoiceLocalStorage\FileInvoiceLocalStorage::class => 'createFileInvoiceLocalStorage',
-            \Example\CliController\PdfGenerator::class => 'createPdfGeneratorFromConfig',
-
         ];
 
         // Define some params that can be injected purely by name.

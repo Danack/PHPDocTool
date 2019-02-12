@@ -10,20 +10,13 @@
 // This allows use to configure data per endpoint e.g. the endpoints that should be secured by
 // an api key, should call an appropriate callable.
 return [
-    ['/books', 'GET', 'Example\AppController\Books::index'],
+    ['/status', 'GET', 'PHPDocTool\AppController\Status::get'],
 
-    ['/iframe/container', 'GET', 'Example\AppController\IframeExample::iframeContainer'],
-    ['/iframe/contents', 'GET', 'Example\AppController\IframeExample::iframeContents'],
 
-    ['/invoices', 'GET', 'Example\AppController\Invoice::listInvoices'],
 
-    ['/invoice/{invoice_id:.+}/render', 'GET', 'Example\AppController\Invoice::renderInvoice'],
 
-    ['/invoice/{invoice_id:.+}/generate', 'GET', 'Example\AppController\Invoice::generateOrGetDownloadLink'],
 
-    ['/invoice/{invoice_id:.+}/download', 'GET', 'Example\AppController\Invoice::downloadInvoice'],
 
-    ['/twig_index', 'GET', 'Example\AppController\Index::getTwig'],
 
-    ['/{any:.*}', 'GET', 'Example\AppController\Index::get'],
+    ['/{any:.*}', 'GET', 'PHPDocTool\AppController\Index::get'],
 ];
