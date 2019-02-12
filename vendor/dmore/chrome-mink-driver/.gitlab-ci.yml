@@ -1,0 +1,34 @@
+variables:
+  COMPOSER_CACHE_DIR: ".cache/composer"
+  DOCROOT: "${CI_PROJECT_DIR}/vendor/mink/driver-testsuite/web-fixtures"
+
+stages:
+  - test
+
+.test_template: &test_template
+  stage: test
+  tags: [docker]
+  script:
+    - composer install -o --ansi --no-progress
+    - vendor/bin/phpunit --colors=always
+  cache:
+    key: common
+    paths:
+      - .cache
+      - vendor
+
+test 5.6:
+  <<: *test_template
+  image: registry.gitlab.com/dmore/docker-chrome-headless:5.6
+
+test 7.0:
+  <<: *test_template
+  image: registry.gitlab.com/dmore/docker-chrome-headless:7.0
+
+test 7.1:
+  <<: *test_template
+  image: registry.gitlab.com/dmore/docker-chrome-headless:7.1
+
+test 7.2:
+  <<: *test_template
+  image: registry.gitlab.com/dmore/docker-chrome-headless:7.2
