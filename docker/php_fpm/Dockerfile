@@ -24,5 +24,3 @@ WORKDIR /var/app
 CMD ["/usr/sbin/php-fpm7.2", "--nodaemonize", "--fpm-config=/var/app/docker/php_fpm/config/fpm.conf", "-c", "/var/app/docker/php_fpm/config/php.ini"]
 
 #CMD tail -f README.md
-
-# CMD /var/app/docker/php_fpm/entrypoint.sh

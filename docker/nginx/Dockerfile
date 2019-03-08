@@ -24,9 +24,8 @@ RUN  apt-get update -qq \
 
 WORKDIR /var/app
 
-# CMD ["/usr/sbin/nginx", "-c", "/var/app/docker/nginx/config/nginx.conf"]
+CMD ["/usr/sbin/nginx", "-c", "/var/app/docker/nginx/config/nginx.conf"]
 
-CMD sh /var/app/docker/nginx/entrypoint.sh
 
 
 
