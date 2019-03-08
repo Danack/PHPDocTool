@@ -21,13 +21,6 @@ function createInjector($testDoubles = [], $testAliases = [])
     $injector = new \Auryn\Injector();
     $injectionParams->addToInjector($injector);
 
-//    foreach ($shareDoubles as $shareDouble) {
-//        $injector->share($shareDouble);
-//    }
-
     $injector->share($injector); //Yolo ServiceLocator
     return $injector;
 }
-
-
-

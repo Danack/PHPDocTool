@@ -15,7 +15,11 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee -a /
     && DEBIAN_FRONTEND=noninteractive apt-get install -y php7.2 php7.2-common php7.2-cli php7.2-fpm \
     php7.2-mysql php7.2-curl php7.2-xml php7.2-mbstring \
     php7.2-intl php7.2-redis php7.2-zip php7.2-sqlite \
-    php7.2-imagick supervisor
+    supervisor php-pear php7.2-dev
+
+RUN pecl install inotify
+
+COPY config/inotify.ini /etc/php/7.2/cli/conf.d/inotify.ini
 
 # Make the default directory you
 WORKDIR /var/app

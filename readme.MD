@@ -1,9 +1,7 @@
 
 # Local dev for php docs.
 
-
 ## How to use
-
 
 1. Run this to build the containers.
 ```
@@ -32,9 +30,14 @@ which means everything has finished building.
 3. Visit http://local.docs.phpimagick.com/ in a web browser. You should see the manual.
 
 
-3. Change a file in ./docs/en/reference.....
 
-Watch supervisor say stuff is done....check that file is changed in the manual.
+
+4. In a different command line window run. 
+
+```
+php watch_for_changes.php
+```
+
 
 
 ## Debugging stuff
@@ -53,38 +56,18 @@ php cli.php
 Where all of the available commands are listed with help notes.
 
 
+ ```
+ docker rm $(docker ps -a -q)
+ docker rmi $(docker images -q)
+ docker network rm $(docker network ls -q)
+ ```
 
-## Where is everything
-
-./injectionParams - this contains the dependency injection information, for each of the different environments.
-
-./routes - this contains the routing information for the website
-
-./cli_commands - this is where all of the cli commands are hooked up.
  
-./lib - all of the actual source code. 
- 
-./docker - contains the dockerfile's for (instructions for how to build) each of the containers, the config files used by each of the containers, and all the entrypoint.sh scripts, that actually run the stuff inside the container.
 
-./docker/supervisord/tasks - this contains the definitions for the background jobs run by supervisord. 
+
+https://git.php.net/repository/web/doc.git
  
- 
-Supervisord has an interface at http://127.0.0.1:8080 where you can control the running jobs. Turning them off while changing the code is a good idea...
   
  
 ## TODO list
-
-* Allow people to set their own git repos for cloning - this will be done through allowing docker-compose-override.yml file to set an ENV variable and then reading the repo URL from en
-
-* Make a frontend so that people can see the status of what is happening in the background.
-
-* Use Python watchdog to monitor files, rather than `git ls`
-
-* Allow non-en files to be edited - and also watch doc-base files, though these might need to trigger a full rebuild.
-
-* Allow skipping of full build on container start.
-
-* Allow people to trigger a full rebuild.
-
-* Wrap exec calls with pipes, so that output can be read + stored immediately, rather than waiting for cmd to finish executing first.
 

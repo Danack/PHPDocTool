@@ -17,8 +17,6 @@ PHD_DIRECTORY="/var/app/phd"
 PHP_NET_DIRECTORY="/var/app/php.net"
 
 
-php /var/app/cli.php status:set "creating DOC_DIRECTORY"
-
 if [ ! -d "$DOC_DIRECTORY" ];
 then
     echo "$DOC_DIRECTORY does not exist, lets create it"
@@ -27,8 +25,6 @@ then
     set +e
 fi
 
-
-php /var/app/cli.php status:set "creating DOC_EN_DIRECTORY"
 
 if [ ! -d "$DOC_EN_DIRECTORY" ];
 then
@@ -42,8 +38,6 @@ else
 fi
 
 
-php /var/app/cli.php status:set "creating DOC_BASE_DIRECTORY"
-
 if [ ! -d "$DOC_BASE_DIRECTORY" ];
 then
     echo "$DOC_BASE_DIRECTORY does not exist, lets clone it."
@@ -55,7 +49,6 @@ else
     echo "$DOC_BASE_DIRECTORY already exists, skipping cloning."
 fi
 
-php /var/app/cli.php status:set "creating PHD_DIRECTORY"
 
 if [ ! -d "$PHD_DIRECTORY" ];
 then
@@ -69,12 +62,9 @@ else
 fi
 
 
-php /var/app/cli.php status:set "creating initial compilation of manual"
-
 echo "Configuring docs - this takes about 2 minutes"
 php "${DOC_BASE_DIRECTORY}/configure.php"
 
-php /var/app/cli.php status:set "creating initial render of manual"
 
 echo "Intial render of docs - this takes about 1.5 minutes"
 php "${PHD_DIRECTORY}/render.php" --docbook "${DOC_BASE_DIRECTORY}/.manual.xml" --memoryindex --package PHP --format php
@@ -92,7 +82,6 @@ else
     echo "PHP_NET_DIRECTORY already exists, skipping cloning."
 fi
 
-php /var/app/cli.php status:set "ready"
 
 echo "Okay, should be installed. Container should now exit.";
 
