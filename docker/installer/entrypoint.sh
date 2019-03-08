@@ -83,5 +83,5 @@ else
 fi
 
 
-echo "Okay, should be installed. Container should now exit.";
+echo "Okay, manual ready to view at http://local.docs.phpimagick.com/. Container should now exit.";
 
