@@ -1,14 +1,7 @@
 version: "3"
 services:
-  php_fpm:
-    build: docker/php_fpm
-    image: phpdoctool_php_fpm
-    volumes:
-      - .:/var/app
-  php_fpm_debug:
-    build: docker/php_fpm_debug
-    depends_on:
-      - php_fpm
+  installer:
+    build: docker/installer
     volumes:
       - .:/var/app
   nginx:
@@ -22,3 +15,14 @@ services:
       - "80:80"
       - "8000:8000"
       - "8001:8001"
+  php_fpm:
+    build: docker/php_fpm
+    image: phpdoctool_php_fpm
+    volumes:
+      - .:/var/app
+  php_fpm_debug:
+    build: docker/php_fpm_debug
+    depends_on:
+      - php_fpm
+    volumes:
+      - .:/var/app
