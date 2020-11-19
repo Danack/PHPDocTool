@@ -1,7 +1,14 @@
 
 # Local dev for php docs.
 
+This repo allows you to edit, build and view the compiled version of the PHP manual.
+
+To use it you need to either check out the manual source files first, or allow this tool to git clone the repo for you.
+
 ## How to use
+
+0. Fork the manual on github, so you can push changes. 
+
 
 1. Run this to build the containers.
 ```
@@ -30,13 +37,17 @@ which means everything has finished building.
 3. Visit http://local.docs.phpimagick.com/ in a web browser. You should see the manual.
 
 
-
-
 4. In a different command line window run. 
 
 ```
 php watch_for_changes.php
 ```
+
+## Directories
+
+
+* ./docs/doc-base
+* ./docs/en - the English version of the manual
 
 
 
@@ -48,26 +59,36 @@ Run this to bash into the PHP container.
 docker exec -it phpdoctool_php_fpm_1 bash
 ```
 
-All of the command line tools are available throught  
-```
-php cli.php
-```
+The script that checks out the repos is in:
 
-Where all of the available commands are listed with help notes.
+./docker/installer/entrypoint.sh
 
+
+In the unlikely event you need to delete all the docker containers:
 
  ```
  docker rm $(docker ps -a -q)
  docker rmi $(docker images -q)
  docker network rm $(docker network ls -q)
  ```
-
- 
-
-
-https://git.php.net/repository/web/doc.git
- 
   
+ 
+## Repo list
+
+For reference, here is a list of all the repos involved in the manual
+
+PHP Manual Base
+https://github.com/phpdoctest/doc-base
+
+PHP English manual
+https://github.com/phpdoctest/en
+
+PHP DocBook code -   
+http://git.php.net/repository/phd.git
+
+"The PHP Documentation Team site"
+https://git.php.net/repository/web/doc.git
+
  
 ## TODO list
 

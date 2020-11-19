@@ -1,0 +1,13 @@
+
+Make compare to live button work.
+
+Show list of changed files.
+
+Allow going to those changed files.
+
+Trigger full rebuild.
+
+Trigger partial rebuild?
+
+
+Cancel?

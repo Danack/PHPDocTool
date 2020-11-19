@@ -14,13 +14,9 @@ class GitWatchSrc
         $this->fileBuildStatus = new FileBuildStatus();
     }
 
-//
+
 //    private function isFileModifiedSinceLastBuild(string $filename)
 //    {
-//
-//
-//
-//
 //        // We haven't built this file yet, so it needs to be built.
 //        if (array_key_exists($fullFilename, $this->fileLastBuildTime) === false) {
 //            $this->fileLastBuildTime[$fullFilename] = $fileMtime;

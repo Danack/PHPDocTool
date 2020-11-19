@@ -10,8 +10,12 @@ declare(strict_types=1);
  * @param int $sleepTime - the time to sleep between runs
  * @param int $maxRunTime - the max time to run for, before returning
  */
-function continuallyExecuteCallable($callable, int $secondsBetweenRuns, int $sleepTime, int $maxRunTime)
-{
+function continuallyExecuteCallable(
+    $callable,
+    int $secondsBetweenRuns,
+    int $sleepTime,
+    int $maxRunTime
+) {
     $startTime = microtime(true);
     $lastRuntime = 0;
     $finished = false;
@@ -204,4 +208,102 @@ function doesFileNeedCompiling($filename)
 //    echo "File $filename is not xml file - BORING!\n";
 
     return false;
+}
+
+
+function saneErrorHandler($errorNumber, $errorMessage, $errorFile, $errorLine)
+{
+    if (error_reporting() === 0) {
+        // Error reporting has been silenced
+        if ($errorNumber !== E_USER_DEPRECATED) {
+            // Check it isn't this value, as this is used by twig, with error suppression. :-/
+            return true;
+        }
+    }
+    if ($errorNumber === E_DEPRECATED) {
+        return false;
+    }
+    if ($errorNumber === E_CORE_ERROR || $errorNumber === E_ERROR) {
+        // For these two types, PHP is shutting down anyway. Return false
+        // to allow shutdown to continue
+        return false;
+    }
+    $message = "Error: [$errorNumber] $errorMessage in file $errorFile on line $errorLine.";
+    throw new \Exception($message);
+}
+
+
+
+function showException(\Exception $exception)
+{
+    echo "oops";
+    do {
+        echo get_class($exception) . ":" . $exception->getMessage() . "\n\n";
+        echo nl2br($exception->getTraceAsString());
+
+        echo "<br/><br/>";
+        $exception = $exception->getPrevious();
+    } while ($exception !== null);
+}
+
+
+
+function appErrorHandler($request, $response, $exception)
+{
+    /** @var \Throwable $exception */
+    $text = "";
+    do {
+        $text .= "Exception type: " . get_class($exception) . "<br/>";
+
+        $text .= $exception->getMessage() . "<br/><br/>\n\n";
+
+//        $text .= str_replace("#", "<br/>#", nl2br($exception->getTraceAsString())). "<br/><br/>\n\n";
+        $text .= str_replace(
+                "#",
+                "<br/>#",
+                nl2br(getExceptionStack($exception))
+            ). "<br/><br/>\n\n";
+    } while (($exception = $exception->getPrevious()) !== null);
+
+    error_log($text);
+
+    return $response->withStatus(500)
+        ->withHeader('Content-Type', 'text/html')
+        ->write($text);
+}
+
+
+
+function getExceptionStack(\Throwable $exception)
+{
+    var_dump(get_class($exception), $exception->getLine(),
+        $exception->getFile(), $exception->getMessage());
+
+    exit(0);
+}
+
+/**
+ * @param array $indexes
+ * @return mixed
+ * @throws Exception
+ */
+function getConfig(array $indexes)
+{
+    static $config = null;
+
+    if ($config === null) {
+        require __DIR__ . '/../config.php';
+    }
+
+    $data = $config;
+
+    foreach ($indexes as $index) {
+        if (array_key_exists($index, $data) === false) {
+            throw new \Exception("Config doesn't contain an element for $index, for indexes [" . implode('|', $indexes) . "]");
+        }
+
+        $data = $data[$index];
+    }
+
+    return $data;
 }

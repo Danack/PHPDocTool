@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>PHP Doc Tool</title>
+
+
+</head>
+<body>
+<div id="main-wrapper">
+  {% block page_body %}
+    Page body goes here. Did you accidentally call base.html by mistake?
+  {% endblock %}
+
+</div>
+</body>
+
+<script src="/doctool/js/jquery/jquery-3.3.1.min.js"></script>
+<script src="/doctool/js/jquery/jquery-ui.min.js"></script>
+
+<script src="/doctool/js/PHPDocTool.js"></script>
+<script src="/doctool/js/StatusWidget.js"></script>
+
+
+{% block page_javascript %}
+{% endblock %}
+
+{{ memory_debug() }}
+</html>

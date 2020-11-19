@@ -15,13 +15,13 @@ class BaseTestCase extends TestCase
 {
     private $startLevel = null;
 
-    public function setup()
+    protected function setup()
     {
         $this->startLevel = ob_get_level();
         ob_start();
     }
 
-    public function teardown()
+    protected function teardown()
     {
         if ($this->startLevel === null) {
             $this->assertEquals(0, 1, "startLevel was not set, cannot complete teardown");

@@ -1,0 +1,9 @@
+version: "3"
+services:
+  php_fpm:
+    environment:
+      - PHP_DOC_REPO=https://github.com/Danack/doc-base
+  php_fpm_debug:
+    environment:
+      - PHP_DOC_REPO=https://github.com/Danack/doc-base
+
