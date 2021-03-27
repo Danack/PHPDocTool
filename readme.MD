@@ -1,6 +1,9 @@
 
 # Local dev for php docs.
 
+_Status_ - this stuff kind of didn't work due to the filesystem inside docker being too slow, which means people need to watch the files outside of docker, which means that attempting to do cross domain stuff also fails, due to only a single domain......blah blah blah. Basically, it'd be nice to have better tooling. I'm really not sure this is the way to go. 
+
+
 This repo allows you to edit, build and view the compiled version of the PHP manual.
 
 To use it you need to either check out the manual source files first, or allow this tool to git clone the repo for you.
