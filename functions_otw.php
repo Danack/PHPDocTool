@@ -1,6 +1,28 @@
 <?php
 
-use PHPDocTool\Config;
+function check_git_available()
+{
+     $last_line = exec("git --version", $output, $return_var);
+
+     if ($return_var !== 0) {
+         echo "Failed to execute git to check version.";
+         exit(-1);
+     }
+
+//     var_dump($last_line);
+    //git version 2.14.1"
+
+    $matched = preg_match("#git version ([\d\.]*)#iu", $last_line, $match);//, PREG_OFFSET_CAPTURE);
+
+    if (!$matched) {
+        echo "Failed to read version of git. If stuff breaks, that's the problem\n";
+        return;
+    }
+
+    $version = $match[1];
+    // TODO - check the string like "2.14.1" is okay. Can
+    // wait until we have a minimum version...
+}
 
 /**
  * Get encoding of a file, regarding his XML's header.
@@ -14,7 +36,7 @@ function getEncoding(string $content)
 
     $match = array();
     preg_match('!<\?xml(.+)\?>!U', $content, $match);
-    $xmlinfo = $this->parseAttribute($match);
+    $xmlinfo = $this->parseAttribute($match); //nice code dan
 
     $charset = isset($xmlinfo[1]['encoding'])
         ? strtolower($xmlinfo[1]['encoding'])
